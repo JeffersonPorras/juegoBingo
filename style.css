@@ -1,0 +1,50 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html{
+    font-size: 62.5%;
+}
+:root{
+    --primary-color: #f4951b
+}
+
+body{
+    background-color: var(--primary-color);
+}
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+h1{
+    font-size: 6rem;
+    color: rgb(212, 23, 23);
+}
+main{
+    display: flex;
+    flex-direction: row;
+    margin-top: 50px;
+}
+.section-carton__jugador{
+    width: 35%;
+}
+.section-boton{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-carton__pc{
+    width: 35%;
+}
+
+.boton-aleatorio{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 5px solid #123156;
+    font-size: 2.6rem;
+    color: #123156;
+}
