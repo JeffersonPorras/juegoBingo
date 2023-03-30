@@ -7,7 +7,9 @@ html{
     font-size: 62.5%;
 }
 :root{
-    --primary-color: #f4951b
+    --primary-color: #f4951b;
+    --segundo-color: #c50000;
+    --color-texto: black;
 }
 
 body{
@@ -20,7 +22,7 @@ header{
 }
 h1{
     font-size: 6rem;
-    color: rgb(212, 23, 23);
+    color: var(--segundo-color);
 }
 main{
     display: flex;
@@ -36,6 +38,19 @@ main{
     justify-content: center;
     align-items: center;
 }
+#resultadoNumeroAleatorio{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    background-color: var(--segundo-color);
+    margin-bottom: 25px;
+    border-radius: 10px;
+    font-size: 3rem;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-texto);
+}
 .boton-aleatorio{
     width: 150px;
     height: 150px;
@@ -43,7 +58,8 @@ main{
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    border: 5px solid #123156;
-    font-size: 2.4rem;
-    color: #123156;
+    border: 5px solid black;
+    font-size: 3rem;
+    color: var(--color-texto);
+    background-color: var(--segundo-color);
 }
