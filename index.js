@@ -1,19 +1,24 @@
+const numeroElegidoBalotera = document.getElementById('numeroElegido')
 let numeroAleatoriosAlmacenados = []
-console.log(numeroAleatoriosAlmacenados);
+
 
 function botonAleatorioOprimido() {
     let botonAletorio = document.querySelector("boton-aleatorio")
-    botonAletorio.addEventListener("click",mostrarNumeroAleatorio)
+    botonAletorio.addEventListener("click",mostrarNumeroAleatorio())
+    console.log(numeroAleatoriosAlmacenados);
 }
+
+
 function mostrarNumeroAleatorio() {
-    let generarNumeroAleatorio = aleatorio(1,100)
-    console.log(generarNumeroAleatorio);
-    numeroAleatoriosAlmacenados.push(generarNumeroAleatorio)
+    let numeroAleatorio = generarNumeroAleatorio(1,100)
+    console.log(numeroAleatorio);
+    numeroAleatoriosAlmacenados.push(numeroAleatorio)
+    mostrarNumeroElegido(numeroAleatorio)
 }
-console.log(mostrarNumeroAleatorio());
 
-
-
-function aleatorio(min, max) {
+function mostrarNumeroElegido(resultado){
+    numeroElegidoBalotera.innerHTML = resultado
+  }
+function generarNumeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }

@@ -24,27 +24,26 @@ h1{
 }
 main{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin-top: 50px;
 }
-.section-carton__jugador{
-    width: 35%;
+.section-carton__jugador,.section-carton__pc,.section-boton{
+    width: 100%;
+    height: 150px;
 }
 .section-boton{
-    width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.section-carton__pc{
-    width: 35%;
-}
-
 .boton-aleatorio{
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
     border: 5px solid #123156;
-    font-size: 2.6rem;
+    font-size: 2.4rem;
     color: #123156;
 }
