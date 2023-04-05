@@ -1,21 +1,35 @@
+const botonAletorio = document.querySelector("boton-aleatorio")
 const numeroElegidoBalotera = document.getElementById('numeroElegido')
 const letraCorrespondienteAlNumero = document.getElementById('resultadoDeLetraYNumero')
 let numeroAleatoriosAlmacenados = []
 
-
 function botonAleatorioOprimido() {
-    let botonAletorio = document.querySelector("boton-aleatorio")
     botonAletorio.addEventListener("click",mostrarNumeroAleatorio())
     console.log(numeroAleatoriosAlmacenados);
 }
 
-
 function mostrarNumeroAleatorio() {
+  let numeroAleatorio = generarNumeroAleatorio(1,100)
+  mostrarAnimacion()
+  numeroAleatoriosAlmacenados.push(numeroAleatorio)
+  mostrarNumeroElegido(numeroAleatorio)
+}
+
+
+function mostrarAnimacion() {
+  let contadorAnimacion = 0
+  let intervaloAnimcacion = setInterval(() => {
+    contadorAnimacion++
     let numeroAleatorio = generarNumeroAleatorio(1,100)
-    console.log(numeroAleatorio);
-    numeroAleatoriosAlmacenados.push(numeroAleatorio)
     mostrarNumeroElegido(numeroAleatorio)
-    MostrarLetraCorrespondienteANumero(numeroAleatorio)
+    console.log(numeroAleatorio);
+    if (contadorAnimacion == 5) {
+      clearInterval(intervaloAnimcacion)
+      numeroAleatorio = generarNumeroAleatorio(1,100)
+      mostrarNumeroElegido(numeroAleatorio)
+      MostrarLetraCorrespondienteANumero(numeroAleatorio)
+    }
+  }, 100);
 }
 
 function mostrarNumeroElegido(resultado){
@@ -40,5 +54,4 @@ function MostrarLetraCorrespondienteANumero(numero) {
   }else{
     mostrarLetraConNumero(`O ${numero}`)
   }
-
 }
