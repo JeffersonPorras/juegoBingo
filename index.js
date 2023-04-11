@@ -15,7 +15,6 @@ function mostrarNumeroAleatorio() {
   mostrarNumeroElegido(numeroAleatorio)
 }
 
-
 function mostrarAnimacion() {
   let contadorAnimacion = 0
   let intervaloAnimcacion = setInterval(() => {
@@ -54,4 +53,53 @@ function MostrarLetraCorrespondienteANumero(numero) {
   }else{
     mostrarLetraConNumero(`O ${numero}`)
   }
+}
+function existeElNumeroJugado(numero) {
+  let numeroAVerificar = numeroAleatoriosAlmacenados.find((o) => o == numero);
+  return numeroAVerificar ? true : false
+}
+function verificarSiNumeroExiste() {
+  let numeroRecibido;
+  do {
+    numeroRecibido = mostrarNumeroAleatorio()
+  } while (existeElNumeroJugado(numeroRecibido));
+}
+function generarCartonJugador() {
+  let section = document.getElementsByTagName("section")[0];
+  let tabla = document.createElement("table");
+  let tblSection = document.createElement("tsection");
+  let contador = 0;
+  for (let i = 0; i < 5; i++) {
+    let hilera = document.createElement("tr");
+    for (let j = 0; j < 5; j++) {
+      let celda = document.createElement("td");
+      celda.classList.add("casilla");
+      celda.id = contador;
+      contador++;
+      hilera.appendChild(celda);
+    }
+    tblSection.appendChild(hilera);
+  }
+  tabla.appendChild(tblSection);
+  section.appendChild(tabla);
+  generarCartonPc()
+}
+function generarCartonPc() {
+  let section = document.getElementsByTagName("section")[2];
+  let tabla = document.createElement("table");
+  let tblSection = document.createElement("tsection");
+  let contador = 0;
+  for (let i = 0; i < 5; i++) {
+    let hilera = document.createElement("tr");
+    for (let j = 0; j < 5; j++) {
+      let celda = document.createElement("td");
+      celda.classList.add("casilla");
+      celda.id = contador;
+      contador++;
+      hilera.appendChild(celda);
+    }
+    tblSection.appendChild(hilera);
+  }
+  tabla.appendChild(tblSection);
+  section.appendChild(tabla);
 }

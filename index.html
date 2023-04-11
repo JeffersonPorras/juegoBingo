@@ -12,9 +12,10 @@
         <h1>Bingo</h1>
     </header>
     <main>
-        <section class="section-carton__jugador"></section>
+        <input class="input-cartones" type="button" value="Crear Cartones" onclick="generarCartonJugador()">
+        <section id="section-carton__jugador"></section>
         <section class="section-boton">
-            <div>
+            <div class="Container-boton">
                 <div id="resultadoNumeroAleatorio">
                     <p id="resultadoDeLetraYNumero"></p>
                 </div>
@@ -23,7 +24,8 @@
                 </button>
             </div>
         </section>
-        <section class="section-carton__pc"></section>
+        <section id="section-carton__pc">
+        </section>
     </main>
     <script src="./index.js"></script>
 </body>
