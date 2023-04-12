@@ -9,9 +9,8 @@ function botonAleatorioOprimido() {
 }
 
 function mostrarNumeroAleatorio() {
-  let numeroAleatorio = generarNumeroAleatorio(1,100)
+  let numeroAleatorio = generarNumeroAleatorio(1,99)
   mostrarAnimacion()
-  numeroAleatoriosAlmacenados.push(numeroAleatorio)
   mostrarNumeroElegido(numeroAleatorio)
 }
 
@@ -19,14 +18,13 @@ function mostrarAnimacion() {
   let contadorAnimacion = 0
   let intervaloAnimcacion = setInterval(() => {
     contadorAnimacion++
-    let numeroAleatorio = generarNumeroAleatorio(1,100)
+    let numeroAleatorio = generarNumeroAleatorio(1,99)
     mostrarNumeroElegido(numeroAleatorio)
     console.log(numeroAleatorio);
     if (contadorAnimacion == 5) {
       clearInterval(intervaloAnimcacion)
-      numeroAleatorio = generarNumeroAleatorio(1,100)
-      mostrarNumeroElegido(numeroAleatorio)
-      MostrarLetraCorrespondienteANumero(numeroAleatorio)
+      numeroAleatorio = generarNumeroAleatorio(1,99)
+      verificarSiNumeroExiste(numeroAleatorio)
     }
   }, 100);
 }
@@ -34,12 +32,11 @@ function mostrarAnimacion() {
 function mostrarNumeroElegido(resultado){
     numeroElegidoBalotera.innerHTML = resultado
   }
-  function mostrarLetraConNumero(resultado){
+
+function mostrarLetraConNumero(resultado){
     letraCorrespondienteAlNumero.innerHTML = resultado
   }
-function generarNumeroAleatorio(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
+
 
 function MostrarLetraCorrespondienteANumero(numero) {
   if (numero <= 20) {
@@ -58,11 +55,20 @@ function existeElNumeroJugado(numero) {
   let numeroAVerificar = numeroAleatoriosAlmacenados.find((o) => o == numero);
   return numeroAVerificar ? true : false
 }
-function verificarSiNumeroExiste() {
-  let numeroRecibido;
-  do {
-    numeroRecibido = mostrarNumeroAleatorio()
-  } while (existeElNumeroJugado(numeroRecibido));
+
+function verificarSiNumeroExiste(numero) {
+  let numeroAVerificar = existeElNumeroJugado(numero)
+  console.log(numeroAVerificar);
+  if(numeroAVerificar) {
+    numeroAVerificar = generarNumeroAleatorio(1,99)
+    mostrarNumeroElegido(numeroAVerificar)
+    MostrarLetraCorrespondienteANumero(numeroAVerificar)
+    numeroAleatoriosAlmacenados.push(numeroAVerificar)
+  }else{
+    mostrarNumeroElegido(numero)
+    MostrarLetraCorrespondienteANumero(numero)
+    numeroAleatoriosAlmacenados.push(numero)
+  }
 }
 function generarCartonJugador() {
   let section = document.getElementsByTagName("section")[0];
@@ -102,4 +108,17 @@ function generarCartonPc() {
   }
   tabla.appendChild(tblSection);
   section.appendChild(tabla);
+}
+
+
+
+
+
+
+
+
+
+
+function generarNumeroAleatorio(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
