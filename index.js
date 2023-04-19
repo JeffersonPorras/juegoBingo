@@ -2,6 +2,7 @@ const botonAletorio = document.querySelector("boton-aleatorio")
 const numeroElegidoBalotera = document.getElementById('numeroElegido')
 const letraCorrespondienteAlNumero = document.getElementById('resultadoDeLetraYNumero')
 let sectionCartonJugador = document.getElementById("section-carton__jugador")
+let sectionCartonPc = document.getElementById("section-carton__pc")
 let numeroAleatoriosAlmacenados = []
 
 function botonAleatorioOprimido() {
@@ -79,10 +80,16 @@ function verificarSiNumeroExiste(numero) {
 function generarCartonDeJuego() {
   let cartonJugador = document.createElement("table")
   let cartonPc = document.createElement("table")
+
   sectionCartonJugador.appendChild(cartonJugador)
+  sectionCartonJugador.appendChild(cartonPc)
+
   cartonJugador.appendChild(generarCabezeraDeCartonDeJuego())
   cartonJugador.appendChild(GenerarBodyDeCartonDeJuego())
+
   cartonPc.appendChild(generarCabezeraDeCartonDeJuego())
+  cartonPc.appendChild(GenerarBodyDeCartonDeJuego())
+
   console.log(cartonPc);
   console.log(cartonJugador);
 }
@@ -115,16 +122,23 @@ function GenerarBodyDeCartonDeJuego() {
 }
 function generarfilasCartonJuego() {
   let fila = document.createElement("tr")
-  let columna = generarValorDeCasillasB(generarNumeroAleatorio(1,20))
-  fila.appendChild(columna)
+  fila.appendChild(generarColumnaDeCarton('b',1,20))
+  fila.appendChild(generarColumnaDeCarton('i',21,40))
+  fila.appendChild(generarColumnaDeCarton('n',41,60))
+  fila.appendChild(generarColumnaDeCarton('g',61,80))
+  fila.appendChild(generarColumnaDeCarton('o',81,99))
   return fila
 }
 
-function generarValorDeCasillasB(numero) {
+function generarValorDeCasillas(numero) {
   let valorCasilla = document.createElement("td")
-  valorCasilla.classList.add("casilla-b")
   valorCasilla.innerText = numero
   return valorCasilla
+}
+function generarColumnaDeCarton(letra,min,max) {
+  let columna = generarValorDeCasillas(generarNumeroAleatorio(min,max))
+  columna.classList.add(`${letra}`)
+  return columna
 }
 
 
