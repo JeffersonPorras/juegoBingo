@@ -1,6 +1,7 @@
 const botonAletorio = document.querySelector("boton-aleatorio")
 const numeroElegidoBalotera = document.getElementById('numeroElegido')
 const letraCorrespondienteAlNumero = document.getElementById('resultadoDeLetraYNumero')
+let sectionCartonJugador = document.getElementById("section-carton__jugador")
 let numeroAleatoriosAlmacenados = []
 
 function botonAleatorioOprimido() {
@@ -37,7 +38,10 @@ function mostrarLetraConNumero(resultado){
     letraCorrespondienteAlNumero.innerHTML = resultado
   }
 
-
+/* function mostrarNumerosAlmacenados(resultado){
+    const sectionNumeros = document.getElementById('contenedorNumerosAlmacenados')
+    sectionNumeros.innerText = resultado
+} */
 function MostrarLetraCorrespondienteANumero(numero) {
   if (numero <= 20) {
     mostrarLetraConNumero(`B ${numero}`)
@@ -64,51 +68,69 @@ function verificarSiNumeroExiste(numero) {
     mostrarNumeroElegido(numeroAVerificar)
     MostrarLetraCorrespondienteANumero(numeroAVerificar)
     numeroAleatoriosAlmacenados.push(numeroAVerificar)
+    mostrarNumerosAlmacenados(numeroAVerificar)
   }else{
     mostrarNumeroElegido(numero)
     MostrarLetraCorrespondienteANumero(numero)
     numeroAleatoriosAlmacenados.push(numero)
+    mostrarNumerosAlmacenados(numero)
   }
 }
-function generarCartonJugador() {
-  let section = document.getElementsByTagName("section")[0];
-  let tabla = document.createElement("table");
-  let tblSection = document.createElement("tsection");
-  let contador = 0;
-  for (let i = 0; i < 5; i++) {
-    let hilera = document.createElement("tr");
-    for (let j = 0; j < 5; j++) {
-      let celda = document.createElement("td");
-      celda.classList.add("casilla");
-      celda.id = contador;
-      contador++;
-      hilera.appendChild(celda);
-    }
-    tblSection.appendChild(hilera);
-  }
-  tabla.appendChild(tblSection);
-  section.appendChild(tabla);
-  generarCartonPc()
+function generarCartonDeJuego() {
+  let cartonJugador = document.createElement("table")
+  let cartonPc = document.createElement("table")
+  sectionCartonJugador.appendChild(cartonJugador)
+  cartonJugador.appendChild(generarCabezeraDeCartonDeJuego())
+  cartonJugador.appendChild(GenerarBodyDeCartonDeJuego())
+  cartonPc.appendChild(generarCabezeraDeCartonDeJuego())
+  console.log(cartonPc);
+  console.log(cartonJugador);
 }
-function generarCartonPc() {
-  let section = document.getElementsByTagName("section")[2];
-  let tabla = document.createElement("table");
-  let tblSection = document.createElement("tsection");
-  let contador = 0;
-  for (let i = 0; i < 5; i++) {
-    let hilera = document.createElement("tr");
-    for (let j = 0; j < 5; j++) {
-      let celda = document.createElement("td");
-      celda.classList.add("casilla");
-      celda.id = contador;
-      contador++;
-      hilera.appendChild(celda);
-    }
-    tblSection.appendChild(hilera);
-  }
-  tabla.appendChild(tblSection);
-  section.appendChild(tabla);
+
+function generarCabezeraDeCartonDeJuego() {
+  let cabezera = document.createElement("thead")
+  let fila = document.createElement("tr")
+  fila.appendChild(crearEncabezado("B"))
+  fila.appendChild(crearEncabezado("I"))
+  fila.appendChild(crearEncabezado("N"))
+  fila.appendChild(crearEncabezado("G"))
+  fila.appendChild(crearEncabezado("O"))
+  cabezera.appendChild(fila)
+  return cabezera
 }
+
+function crearEncabezado(valor) {
+  let encabezado = document.createElement("th")
+  encabezado.innerText = valor
+  return encabezado
+}
+
+function GenerarBodyDeCartonDeJuego() {
+  let body = document.createElement("tbody")
+  for (let b = 0; b < 4; b++) {
+    let fila = generarfilasCartonJuego()
+    body.appendChild(fila)
+  }
+  return body
+}
+function generarfilasCartonJuego() {
+  let fila = document.createElement("tr")
+  let columna = generarValorDeCasillasB(generarNumeroAleatorio(1,20))
+  fila.appendChild(columna)
+  return fila
+}
+
+function generarValorDeCasillasB(numero) {
+  let valorCasilla = document.createElement("td")
+  valorCasilla.classList.add("casilla-b")
+  valorCasilla.innerText = numero
+  return valorCasilla
+}
+
+
+
+
+
 
 
 

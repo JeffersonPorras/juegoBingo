@@ -58,7 +58,7 @@ table{
     border: 4px solid;
     background-color: var(--segundo-color);
 }
-.casilla{
+th,td{
     width: 80px;
     height: 40px;
     border: 2px solid;
