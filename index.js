@@ -2,7 +2,7 @@ const botonAletorio = document.querySelector("boton-aleatorio")
 const numeroElegidoBalotera = document.getElementById('numeroElegido')
 const letraCorrespondienteAlNumero = document.getElementById('resultadoDeLetraYNumero')
 let sectionCartonJugador = document.getElementById("section-carton__jugador")
-let sectionCartonPc = document.getElementById("section-carton__pc")
+let sectionCartonPc = document.getElementById('section-carton__pc')
 let numeroAleatoriosAlmacenados = []
 
 function botonAleatorioOprimido() {
@@ -61,28 +61,20 @@ function existeElNumeroJugado(numero) {
   return numeroAVerificar ? true : false
 }
 
-function verificarSiNumeroExiste(numero) {
-  let numeroAVerificar = existeElNumeroJugado(numero)
-  console.log(numeroAVerificar);
-  if(numeroAVerificar) {
+function verificarSiNumeroExiste(numeroAVerificar) {
+  do {
     numeroAVerificar = generarNumeroAleatorio(1,99)
-    mostrarNumeroElegido(numeroAVerificar)
-    MostrarLetraCorrespondienteANumero(numeroAVerificar)
-    numeroAleatoriosAlmacenados.push(numeroAVerificar)
-    mostrarNumerosAlmacenados(numeroAVerificar)
-  }else{
-    mostrarNumeroElegido(numero)
-    MostrarLetraCorrespondienteANumero(numero)
-    numeroAleatoriosAlmacenados.push(numero)
-    mostrarNumerosAlmacenados(numero)
-  }
+  } while (existeElNumeroJugado(numeroAVerificar));
+  mostrarNumeroElegido(numeroAVerificar)
+  MostrarLetraCorrespondienteANumero(numeroAVerificar)
+  numeroAleatoriosAlmacenados.push(numeroAVerificar)
 }
 function generarCartonDeJuego() {
   let cartonJugador = document.createElement("table")
   let cartonPc = document.createElement("table")
 
   sectionCartonJugador.appendChild(cartonJugador)
-  sectionCartonJugador.appendChild(cartonPc)
+  sectionCartonPc.appendChild(cartonPc)
 
   cartonJugador.appendChild(generarCabezeraDeCartonDeJuego())
   cartonJugador.appendChild(GenerarBodyDeCartonDeJuego())
@@ -130,6 +122,7 @@ function generarfilasCartonJuego() {
   return fila
 }
 
+
 function generarValorDeCasillas(numero) {
   let valorCasilla = document.createElement("td")
   valorCasilla.innerText = numero
@@ -140,6 +133,8 @@ function generarColumnaDeCarton(letra,min,max) {
   columna.classList.add(`${letra}`)
   return columna
 }
+
+
 
 
 
