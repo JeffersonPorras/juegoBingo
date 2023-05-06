@@ -1,10 +1,10 @@
 const botonAletorio = document.querySelector("boton-aleatorio")
 const numeroElegidoBalotera = document.getElementById('numeroElegido')
 const letraCorrespondienteAlNumero = document.getElementById('resultadoDeLetraYNumero')
-let sectionCartonJugador = document.getElementById("section-carton__jugador")
-let sectionCartonPc = document.getElementById('section-carton__pc')
+let sectionCartones = document.getElementById("section-cartones")
 let numeroAleatoriosAlmacenados = []
 let cantidadDeNumerosPorColumna = 5
+let cantidadDeCartones = 2
 
 let numerosAlmacenadosDelCarton = {
   b:[],
@@ -74,21 +74,22 @@ function verificarSiNumeroExiste(numeroAVerificar) {
   numeroAleatoriosAlmacenados.push(numeroAVerificar)
 }
 
-function generarCartonDeJuego() {
-  let cartonJugador = document.createElement("table")
-  //let cartonPc = document.createElement("table")
 
-  sectionCartonJugador.appendChild(cartonJugador)
-  //sectionCartonPc.appendChild(cartonPc)
 
-  cartonJugador.appendChild(generarCabezeraDeCartonDeJuego())
-  cartonJugador.appendChild(GenerarBodyDeCartonDeJuego())
-
-  //cartonPc.appendChild(generarCabezeraDeCartonDeJuego())
-  //cartonPc.appendChild(GenerarBodyDeCartonDeJuego())
-
-  //console.log(cartonPc);
-  console.log(cartonJugador);
+function crearCartonDeJuego() {
+  let idTabla = ''
+  for (let index = 0; index < cantidadDeCartones; index++) {
+    idTabla = `tabla-${index+1}`
+    let cartonCreado =  document.createElement("table")
+    sectionCartones.appendChild(cartonCreado)
+    cartonCreado.appendChild(generarCabezeraDeCartonDeJuego())
+    cartonCreado.appendChild(generarBodyDeCartonDeJuego(idTabla))
+    console.log(idTabla);
+  }
+  for (let tabla = 0; tabla < cantidadDeCartones; tabla++) {
+    asignarNumerosACarton(cantidadDeCartones,generarNumeroParaCadaCarton())
+  }
+  //asignarNumerosACarton(2,generarNumeroParaCadaCarton())
 }
 
 function generarCabezeraDeCartonDeJuego() {
@@ -109,41 +110,69 @@ function crearEncabezado(valor) {
   return encabezado
 }
 
-function GenerarBodyDeCartonDeJuego() {
+function generarTablaDeJuego() {
+  let arrayTablas = [];
+  let tablaJuego = document.createElement("table");
+    arrayTablas = generarBodyDeCartonDeJuego()
+    arrayTablas.forEach((body) => {
+      tablaJuego.appendChild(body)
+    })
+    return tablaJuego
+}
+function generarBodyDeCartonDeJuego(idTabla) {
   let arrayFilas = []
   let body = document.createElement("tbody")
-   arrayFilas = generarfilasCartonJuego()
+   arrayFilas = generarfilasCartonJuego(idTabla)
    arrayFilas.forEach((fila) => {
     body.appendChild(fila)
    })
   return body
 }
-function generarfilasCartonJuego() {
+function generarfilasCartonJuego(idTabla) {
   let arrayFilas = []
   for (let index = 0; index < cantidadDeNumerosPorColumna; index++) {
     let fila = document.createElement("tr")
-    let arrayColumnas = generarColumnas(index + 1)
+    let arrayColumnas = generarColumnas(idTabla,index + 1)
     arrayColumnas.forEach((colum) => {
       fila.appendChild(colum)
     })
     arrayFilas.push(fila)
   }
   return arrayFilas;
-  //fila.appendChild(generarNumerosDeLasLetras())
-  /* fila.appendChild(generarValorDeCasillasI(generarNumeroAleatorio(21,40)))
-  fila.appendChild(generarValorDeCasillasN(generarNumeroAleatorio(41,60)))
-  fila.appendChild(generarValorDeCasillasG(generarNumeroAleatorio(61,80)))
-  fila.appendChild(generarValorDeCasillasO(generarNumeroAleatorio(81,99))) */
 }
-function generarColumnas(idFila) {
+
+function generarColumnas(idTabla, idFila) {
  let arrayLetras = ['b','i','n','g','o'];
  let arrayCasillas = []
  for (let index = 0; index < arrayLetras.length; index++) {
   let casilla = document.createElement('td');
-  casilla.id = `${arrayLetras[index]}-${idFila}`
+  casilla.id = `${idTabla}-${arrayLetras[index]}-${idFila}`
   arrayCasillas.push(casilla)
  }
  return arrayCasillas;
+}
+function generarNumeroParaCadaCarton() {
+  let numerosAsigandos = {
+    b:generarNumerosDeLasLetras(cantidadDeNumerosPorColumna,1,20),
+    i:generarNumerosDeLasLetras(cantidadDeNumerosPorColumna,21,40),
+    n:generarNumerosDeLasLetras(cantidadDeNumerosPorColumna,41,60),
+    g:generarNumerosDeLasLetras(cantidadDeNumerosPorColumna,61,80),
+    o:generarNumerosDeLasLetras(cantidadDeNumerosPorColumna,81,99),
+  }
+  console.log(numerosAsigandos);
+  return numerosAsigandos
+}
+function asignarNumerosACarton(idTabla,numerosAsigandos) {
+  let columnas = Object.keys(numerosAsigandos)
+  let numerosPorColumna = Object.values(numerosAsigandos)
+  
+  for (let index = 0; index < columnas.length; index++) {
+    for (let indexColumna = 0; indexColumna < numerosPorColumna[index].length; indexColumna++){
+      let idCasillas = `tabla-${idTabla}-${columnas[index]}-${indexColumna+1}`
+      let casillaAModificar = document.getElementById(idCasillas)
+      casillaAModificar.innerText = numerosPorColumna[index][indexColumna]
+    }
+  }
 }
 
 function generarNumerosDeLasLetras(cantidadNumeros,numeroMinimo,numeroMaximo) {
