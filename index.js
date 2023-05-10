@@ -86,12 +86,14 @@ function crearCartonDeJuego() {
     cartonCreado.appendChild(generarBodyDeCartonDeJuego(idTabla))
     console.log(idTabla);
   }
-  for (let tabla = 0; tabla < cantidadDeCartones; tabla++) {
-    asignarNumerosACarton(cantidadDeCartones,generarNumeroParaCadaCarton())
-  }
+  pintarCartones()
   //asignarNumerosACarton(2,generarNumeroParaCadaCarton())
 }
-
+function pintarCartones() {
+  for (let tabla = 1; tabla <= cantidadDeCartones; tabla++) {
+     asignarNumerosACarton(tabla,generarNumeroParaCadaCarton())
+  }
+}
 function generarCabezeraDeCartonDeJuego() {
   let cabezera = document.createElement("thead")
   let fila = document.createElement("tr")
@@ -162,13 +164,19 @@ function generarNumeroParaCadaCarton() {
   console.log(numerosAsigandos);
   return numerosAsigandos
 }
+/**
+ * 
+ * @param {*} idTabla 
+ * @param {*} numerosAsigandos 
+ */
 function asignarNumerosACarton(idTabla,numerosAsigandos) {
   let columnas = Object.keys(numerosAsigandos)
   let numerosPorColumna = Object.values(numerosAsigandos)
-  
+
   for (let index = 0; index < columnas.length; index++) {
     for (let indexColumna = 0; indexColumna < numerosPorColumna[index].length; indexColumna++){
       let idCasillas = `tabla-${idTabla}-${columnas[index]}-${indexColumna+1}`
+      console.log(idCasillas);
       let casillaAModificar = document.getElementById(idCasillas)
       casillaAModificar.innerText = numerosPorColumna[index][indexColumna]
     }
